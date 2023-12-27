@@ -25,7 +25,9 @@ services:
       - ./default.conf:/etc/nginx/conf.d/default.conf
       - static_volumes:/home/app/static
       - media_volumes:/home/app/media
-      - ./certbot/www:/var/www/certbot/:ro
+      - ./fullchain.pem:/var/www/certbot/fullchain.pem
+      - ./privkey.pem:/var/www/certbot/privkey.pem
+
     depends_on:
       - backend
     restart: always
