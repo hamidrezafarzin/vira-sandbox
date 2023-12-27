@@ -1,0 +1,8 @@
+Django==4.2.6
+Pillow
+django-cors-headers
+
+# deployment modules
+gunicorn
+django-decouple
+python-decouple
