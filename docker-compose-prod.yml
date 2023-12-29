@@ -26,6 +26,7 @@ services:
       - static_volumes:/home/app/static
       - media_volumes:/home/app/media
       - ./certbot/www/:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/letsencrypt/:ro
     depends_on:
       - backend
     restart: always
