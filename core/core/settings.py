@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY", default="test")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=True)
 
-ALLOWED_HOSTS = ["sandbox.virasmart.co", "188.121.100.158"]
+ALLOWED_HOSTS = ["test.virasmart.co", "188.121.100.158"]
 
 
 # Application definition
