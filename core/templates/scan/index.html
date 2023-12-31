@@ -121,7 +121,7 @@
                         
                             <input type="hidden" id="captured-image" name="photo">
 
-
+                            <button type="button" class="btn btn-primary btn-block" onclick="previousPage()">بازگشت</button>
                             <h3 id="poshtibani">در صورت نیاز با شماره زیر تماس بگیرید</h3>
                             <h5 id="poshtibaniphone"><a href="tel:09303233439">09303233439</a></h5>
 
@@ -131,7 +131,6 @@
             </div>
            
 
-            <button type="button" class="btn btn-primary btn-block" onclick="previousPage()">بازگشت</button>
             <!-- <button type="submit" class="btn btn-success btn-block">Submit</button> -->
             <!-- <input type="submit" value="OK"> -->
         </div>
@@ -338,7 +337,7 @@ function sendDataAndPhoto() {
                     if (response.status === 200) {
                         alert('عملیات با موفقیت انجام شد');
                         // Redirect the user to the desired site
-                        window.location.href = "https://www.virasmart.co/about-us/";  // Replace with your desired URL
+                        window.location.href = "https://www.virasmart.co/contact-us/";  // Replace with your desired URL
                     } else {
                         return response.json();  // If the response status is not 200, return the JSON response
                     }
