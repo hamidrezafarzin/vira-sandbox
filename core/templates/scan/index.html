@@ -241,65 +241,56 @@ window.onload = function() {
     }
 
     function startCameraOnScan() {
-    event.preventDefault();
-    const video = document.getElementById('camera-preview');
-    const startScanBtn = document.getElementById('start-scan-btn');
-    const scanBtn = document.getElementById('scan-btn');
-    const uploadBtn = document.getElementById('upload-btn');
-    const retakeBtn = document.getElementById('retake-btn');
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Access the back camera by specifying facingMode
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-            .then(function (stream) {
-                video.srcObject = stream;
-            })
-            .catch(function (error) {
-                console.error('Error accessing camera:', error);
-            });
-    } else {
-        console.error('getUserMedia not supported on your browser');
-    }
+        event.preventDefault();
+        const video = document.getElementById('camera-preview');
+        const startScanBtn = document.getElementById('start-scan-btn');
+        const scanBtn = document.getElementById('scan-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const retakeBtn = document.getElementById('retake-btn');
+        
+        // Specify constraints to use the back camera
+        const constraints = { video: { facingMode: { exact: "environment" } } };
     
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-            video.srcObject = stream;
-
-            startScanBtn.classList.add('d-none');
-            scanBtn.classList.remove('d-none');
-            uploadBtn.classList.add('d-none');
-            retakeBtn.classList.add('d-none');
-
-            scanBtn.addEventListener('click', function () {
-                startScanBtn.classList.add('d-none');
-                scanBtn.classList.add('d-none');
-                uploadBtn.classList.remove('d-none');
-                retakeBtn.classList.remove('d-none');
-
-                captureImage(video, scanBtn);
-            });
-
-
-
-            retakeBtn.addEventListener('click', function () {
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                video.srcObject = stream;
+    
                 startScanBtn.classList.add('d-none');
                 scanBtn.classList.remove('d-none');
                 uploadBtn.classList.add('d-none');
                 retakeBtn.classList.add('d-none');
-
-                video.classList.remove('d-none');
-                document.getElementById('captured-image-container').classList.add('d-none');
+    
+                scanBtn.addEventListener('click', function () {
+                    startScanBtn.classList.add('d-none');
+                    scanBtn.classList.add('d-none');
+                    uploadBtn.classList.remove('d-none');
+                    retakeBtn.classList.remove('d-none');
+    
+                    captureImage(video, scanBtn);
+                });
+    
+                retakeBtn.addEventListener('click', function () {
+                    startScanBtn.classList.add('d-none');
+                    scanBtn.classList.remove('d-none');
+                    uploadBtn.classList.add('d-none');
+                    retakeBtn.classList.add('d-none');
+    
+                    video.classList.remove('d-none');
+                    document.getElementById('captured-image-container').classList.add('d-none');
+                });
+            })
+            .catch((err) => {
+                console.error('Error accessing camera:', err);
+                alert('خطا در دسترسی به دوربین. لطفاً مجدداً تلاش کنید.');
             });
-        })
-        .catch((err) => console.error('Error accessing camera:', err));
-
-    window.addEventListener('beforeunload', function () {
-        const tracks = video.srcObject?.getTracks();
-        if (tracks) {
-            tracks.forEach(track => track.stop());
-        }
-    });
-}
+    
+        window.addEventListener('beforeunload', function () {
+            const tracks = video.srcObject?.getTracks();
+            if (tracks) {
+                tracks.forEach(track => track.stop());
+            }
+        });
+    }
 
 function captureImage(video, captureBtn) {
     const capturedImageContainer = document.getElementById('captured-image-container');
