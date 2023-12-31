@@ -248,6 +248,19 @@ window.onload = function() {
     const uploadBtn = document.getElementById('upload-btn');
     const retakeBtn = document.getElementById('retake-btn');
 
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Access the back camera by specifying facingMode
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error('Error accessing camera:', error);
+            });
+    } else {
+        console.error('getUserMedia not supported on your browser');
+    }
+    
     navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
             video.srcObject = stream;
