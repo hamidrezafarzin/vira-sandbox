@@ -29,7 +29,7 @@ class Scan(models.Model):
     product_type = models.CharField(max_length=35, choices=ProductTypeStatus.choices)
     scan_part = models.CharField(max_length=35, choices=ScanStatus.choices)
     number_in_box = models.PositiveIntegerField(blank=False, null=False)
-    manufacture_date = models.DateTimeField()
+    manufacture_date = models.CharField(max_length=255, validators=[FieldValidators.xss_validator,], blank=False, null=False) #models.DateTimeField()
     photo = models.ImageField(upload_to="label", blank=False, null=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
