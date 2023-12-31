@@ -16,12 +16,13 @@ Including another URLconf
 """
 
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
 
-from .views import ScanView, done_view
+
+from .views import scan_view
 app_name = 'scan'
 
 urlpatterns = [
-    path('', ScanView.as_view(), name='scan-view'),
-    path('done/', done_view, name='done-view'),
+    path('damdaran/data/', scan_view, name='scan-view'),
 
 ]
