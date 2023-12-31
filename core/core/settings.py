@@ -29,7 +29,7 @@ DEBUG = config("DEBUG", cast=bool, default=True)
 
 ALLOWED_HOSTS = ["test.virasmart.co", "188.121.100.158"]
 
-
+CSRF_TRUSTED_ORIGINS = ["https://test.virasmart.co"]
 # Application definition
 
 INSTALLED_APPS = [
