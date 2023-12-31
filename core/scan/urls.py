@@ -23,6 +23,6 @@ from .views import scan_view
 app_name = 'scan'
 
 urlpatterns = [
-    path('damdaran/data/', scan_view, name='scan-view'),
+    path('', scan_view, name='scan-view'),
 
 ]
