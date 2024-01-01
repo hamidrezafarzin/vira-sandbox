@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from validators.fieldvalidators import FieldValidators
+import os 
+from django.dispatch import receiver
+from django.db.models.signals import post_save, pre_save
 
 # Create your models here.
 
@@ -40,3 +43,10 @@ class Scan(models.Model):
         
     def __str__(self):
         return f"{self.phone}"
+    
+
+@receiver(models.signals.post_delete, sender=Scan)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.photo:
+        if os.path.isfile(instance.photo.path):
+            os.remove(instance.photo.path)
