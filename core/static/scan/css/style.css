@@ -1,0 +1,173 @@
+body , html {
+    padding: 0px;
+    margin: 0px;
+}
+/* @font-face {
+    font-family: 'IRANSANSX';
+    src: url(C:\Users\fnade\AppData\Local\Microsoft\Windows\Fonts\IRANSANSXTHIN.TTF);
+} */
+#whole {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+#header1 {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.display-5 {
+    font-family: 'IRANSANSX';
+    margin: 0%;
+    padding: 0;
+}
+#Head {
+    font-size: 30px;
+}
+.text-center {
+    margin-top: 20px;
+}
+.container {
+    padding: 0;
+}
+svg {
+    color: purple;
+    width: 80px;
+    height: 55px;
+}
+#info {
+    font-weight: 350;
+}
+.py-5 {
+    padding-bottom: 0px !important;
+}
+#buttonnext {
+    background-color: purple;
+}
+#productDropdown {
+    margin-bottom: 10px;
+    width: 200px;
+    height: 50px;
+    border: 2px solid blue;
+    border-radius: 20px;
+    text-align: center;
+}
+#productDropdown2 {
+    margin-bottom: 10px;
+    width: 200px;
+    height: 50px;
+    border: 2px solid blue;
+    border-radius: 20px;
+    text-align: center;
+}
+#producttype {
+    font-weight: 100;
+    font-size: 50px;
+}
+
+#camera-preview {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border: 1px solid red;
+}
+#captured-image-container {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+}
+
+#captured-image-container img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border: 1px solid red;
+}
+#capture-btn,
+#upload-btn {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 250px;
+
+}
+#poshtibani {
+    font-size: 20px;
+    font-weight: 350;
+    margin-top: 20px;
+}
+#poshtibaniphone {
+    margin-top: 20px;
+}
+
+#scanForm {
+    padding: 0px;
+    margin: 0px;
+}
+#date {
+    
+    font-weight: 100;
+    font-size: 20px;
+}
+#start {
+    margin-bottom: 20px;
+    border:2px solid purple ;
+    border-radius: 20px;
+}
+.pwt-btn-calendar {
+    display: none !important;
+  }
+  #retake-btn {
+    width: 100%;
+    max-width: 250px;
+    margin-top: 0px !important;
+  }
+  #startbutton {
+    width: 100px;
+  }
+#scan-btn {
+    width: 100%;
+    max-width: 250px;
+}
+#start-scan-btn {
+    width: 100%;
+    max-width: 250px;
+}
+#productDropdown-error {
+    color: red;
+    font-size: 13px;
+    text-align: right;
+    margin-bottom: 30px;
+}
+#productDropdown2-error {
+    color: red;
+    font-size: 13px;
+    text-align: right;
+    margin-bottom: 30px;
+}
+#floatingInput4-error {
+    color: red;
+    font-size: 13px;
+    padding-left:200px ;
+}
+#floatingInput1-error {
+    color: red;
+    font-size: 13px;
+    padding-left:190px ;
+}
+#floatingInput2-error {
+    color: red;
+    font-size: 13px;
+    padding-left:190px ;
+}
+#floatingInput3-error {
+    color: red;
+    font-size: 13px;
+    padding-left:190px ;
+}
+#floatingInput4 {
+    margin-top: 20px;
+}
+#floatingInput5 {
+    margin-bottom: 20px;
+    width: 127.2px;
+    padding-right: 30px;
+}

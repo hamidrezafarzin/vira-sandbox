@@ -1,88 +1,4 @@
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vira Scan Page</title>
-    <link rel="icon" type="image/png" href="{% static "scan/logo/vira_logo.png" %}"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="{% static "scan/js/detectUser.js" %}" defer></script>
-</body>
-
-</html> {% endcomment %}
-
-
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Multi-page Form</title>
-</head>
-<body>
-
-<form id="multiForm" method="post" >
-    {% csrf_token %}
-    <!-- Page 1: Personal Details -->
-    <div id="page1">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName"><br><br>
-        
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName"><br><br>
-        
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone"><br><br>
-        
-        <button type="button" onclick="nextPage()">Next</button>
-    </div>
-    
-    <!-- Page 2: Product Details -->
-    <div id="page2" style="display:none;">
-        <label for="productType">Product Type:</label>
-        <input type="text" id="productType" name="productType"><br><br>
-        
-        <label for="expiryDate">Expiry Date:</label>
-        <input type="date" id="expiryDate" name="expiryDate"><br><br>
-        
-        <button type="button" onclick="nextPage()">Next</button>
-    </div>
-    
-    <!-- Page 3: Upload Photo -->
-    <div id="page3" style="display:none;">
-        <input type="file" id="productPhoto" name="productPhoto"><br><br>
-        
-        <button type="submit">Submit</button>
-    </div>
-</form>
-
-<script>
-    let currentPage = 1;
-    
-    function nextPage() {
-        document.getElementById(`page${currentPage}`).style.display = "none";
-        currentPage++;
-        if (currentPage <= 3) {
-            document.getElementById(`page${currentPage}`).style.display = "block";
-        } else {
-            // Here you can submit the form or send data to Django
-            document.getElementById("multiForm").submit();
-        }
-    }
-</script>
-
-</body>
-</html>  {% endcomment %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,64 +7,132 @@
     <title>Scan Form</title>
     <!-- Bootstrap CSS CDN -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'scan/css/style.css' %}">
+    <!-- <link rel="stylesheet" href="css/persianDatepicker-default.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/persian-datepicker@latest/dist/css/persian-datepicker.min.css" />
 </head>
 <body>
 
 <div class="container mt-5">
-    <form id="scanForm" method="post" enctype="multipart/form-data" class="shadow p-4 rounded">
+    <form id="scanForm" method="post" action="{% url 'scan:scan-view'%}" class="shadow p-4 rounded">
         {% csrf_token %}
-        
         <!-- Page 1: Personal Details -->
         <div id="page1">
-            <h3 class="text-center mb-4">Personal Details</h3>
-            <div class="form-group">
-                {{ form.first_name.label_tag }}
-                {{ form.first_name }}
+            <div class="px-4 py-5 my-5 text-center">
+                <img class="d-block mx-auto mb-4" src="{% static 'scan/logo/vira_logo.png' %}" alt="" width="150px" height="150px">
+                <h1 class="display-5 fw-bold">پلتفرم هوشمند ویرا</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead mb-4">نسخه آزمایشی</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <h3 class="text-center mb-4">.اطلاعات زیر را وارد نمایید</h3>
+                    </div>
+                </div>
+
+                <main class="form-signin">
+                    <div class="form-floating" dir="rtl">
+                        <input type="text" name="first_name" class="form-control" id="floatingInput1" placeholder="نام"
+                            required>
+                        <label for="floatingInput"></label>
+                    </div>
+                    <div class="form-floating" dir="rtl">
+                        <input type="text" name="last_name" class="form-control" id="floatingInput2"
+                            placeholder="نام خانوادگی" required>
+                        <label for="floatingPassword"></label>
+                    </div>
+                    <div class="form-floating" dir="rtl">
+                        <input type="number" name="phone" class="form-control" id="floatingInput3"
+                            placeholder="تلفن همراه" required>
+                        <label for="floatingInput"></label>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" onclick="nextPage()">ادامه</button>
+                    
+                </main>
+                <h3 id="poshtibani">در صورت نیاز با شماره زیر تماس بگیرید</h3>
+                <h5 id="poshtibaniphone"><a href="tel:09303233439">09303233439</a></h5>
             </div>
-            <div class="form-group">
-                {{ form.last_name.label_tag }}
-                {{ form.last_name }}
-            </div>
-            <div class="form-group">
-                {{ form.phone.label_tag }}
-                {{ form.phone }}
-            </div>
-            
-            <button type="button" class="btn btn-primary btn-block" onclick="nextPage()">Next</button>
         </div>
         
         <!-- Page 2: Product Details -->
         <div id="page2" style="display:none;">
-            <h3 class="text-center mb-4">Product Details</h3>
-            <div class="form-group">
-                {{ form.product_type.label_tag }}
-                {{ form.product_type }}
+            <div class="px-4 py-5 my-5 text-center">
+                <img class="d-block mx-auto mb-4" src="{% static 'scan/logo/vira_logo.png' %}" alt="" width="150px" height="150px">
+                <h1 class="display-5 fw-bold">پلتفرم هوشمند ویرا</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead mb-4">نسخه آزمایشی</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <h3 class="text-center mb-4">.اطلاعات زیر را وارد نمایید</h3>
+                    </div>
+                </div>
+
+                <main class="form-signin mb-3">
+                        <p id="productype"> مرحله اسکن را انتخاب کنید</p>
+                        <select id="productDropdown" required name="scan_part">
+                            <option value="" selected>لطفاً انتخاب کنید</option>
+                            <option value="Load from source" dir="rtl">بارگیری از مبدا</option>
+                            <option value="Delivery to the distribution system" dir="rtl">تحویل به سیستم توزیع</option>
+                            <option value="Delivery to the store" dir="rtl">تحویل به فروشگاه</option>
+                        </select>
+                        <p id="productype">نوع محصول را انتخاب کنید</p>
+                        <select id="productDropdown2" required name="product_type">
+                            <option value="" selected>لطفاً انتخاب کنید</option>
+                            <option value="pasteurized Milk" dir="rtl">شیر پاستوریزه</option>
+                            <option value="ESL milk" dir="rtl">ESL شیر</option>
+                        </select>
+                        <div class="form-floating" dir="rtl">
+                            <input type="number" class="form-control" id="floatingInput4"
+                                placeholder=" تعداد باکس را وارد نمایید" required name="number_in_box">
+                            <label for="floatingPassword"></label>
+                        </div>
+                        <div class="form-floating" dir="rtl">
+                            <p id="productype">تاریخ تولید را انتخاب کنید</p>
+                            <input type="text" class="example1" id="floatingInput5" required name="manufacture_date" />
+                        </div>
+                        <button type="button" class="btn btn-primary btn-block" onclick="nextPage()">ادامه</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="previousPage()">بازگشت</button>
+                </main>
+                   
+                <h3 id="poshtibani">در صورت نیاز با شماره زیر تماس بگیرید</h3>
+                <h5 id="poshtibaniphone"><a href="tel:09303233439">09303233439</a></h5>
             </div>
-            <div class="form-group">
-                <label for="manufactureDate">Manufacture Date:</label>
-                <input type="date" id="manufactureDate" name="manufacture_date" class="form-control">
-            </div>
-            <div class="form-group">
-                {{ form.scan_part.label_tag }}
-                {{ form.scan_part }}
-            </div>
-            <div class="form-group">
-                {{ form.number_in_box.label_tag }}
-                {{ form.number_in_box }}
-            </div>
-            
-            <button type="button" class="btn btn-primary btn-block" onclick="nextPage()">Next</button>
         </div>
         
         <!-- Page 3: Upload Photo -->
         <div id="page3" style="display:none;">
-            <h3 class="text-center mb-4">Upload Photo</h3>
-            <div class="form-group">
-                {{ form.photo.label_tag }}
-                {{ form.photo }}
+            <div class="px-4 py-5 my-5 text-center">
+                <img class="d-block mx-auto mb-4" src="{% static 'scan/logo/vira_logo.png' %}" alt="" width="150px" height="150px">
+                <h1 class="display-5 fw-bold">پلتفرم هوشمند ویرا</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead mb-4">نسخه آزمایشی</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <div class="d-flex flex-column align-items-center">
+                            <div>
+                                <video id="camera-preview" autoplay></video>
+                                <div id="captured-image-container" class="d-none"></div>
+                            </div>
+
+                            <button type="button" id="start-scan-btn" class="btn btn-primary mt-2" onclick="startCameraOnScan()">شروع
+                                اسکن</button>
+                            <button type="button" id="scan-btn" class="btn btn-primary mt-2 d-none"
+                                onclick="captureImage()">اسکن</button>
+                            <button type="button" id="upload-btn" class="btn btn-primary mt-2 d-none"
+                                onclick="sendDataAndPhoto()">تایید نهایی</button>
+                            <button type="button" id="retake-btn" class="btn btn-warning mt-5 d-none" onclick="retakePhoto()">اسکن
+                                مجدد</button>
+                        
+                            <input type="hidden" id="captured-image" name="photo">
+
+                             <!--  <button type="button" class="btn btn-primary btn-block" onclick="previousPage()">بازگشت</button> -->
+                            <h3 id="poshtibani">در صورت نیاز با شماره زیر تماس بگیرید</h3>
+                            <h5 id="poshtibaniphone"><a href="tel:09303233439">09303233439</a></h5>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <button type="submit" class="btn btn-success btn-block">Submit</button>
+           
+
+            <!-- <button type="submit" class="btn btn-success btn-block">Submit</button> -->
+            <!-- <input type="submit" value="OK"> -->
         </div>
     </form>
 </div>
@@ -158,20 +142,255 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
 <script>
+
+
+
     let currentPage = 1;
     
     function nextPage() {
-        document.getElementById(`page${currentPage}`).style.display = "none";
-        currentPage++;
-        if (currentPage <= 3) {
-            document.getElementById(`page${currentPage}`).style.display = "block";
+        let canProceed = true; // A flag to determine if the user can proceed to the next page
+    
+        // Depending on the currentPage, perform the appropriate validation
+        switch (currentPage) {
+            case 1:
+                const firstName = document.getElementsByName('first_name')[0].value.trim();
+                const lastName = document.getElementsByName('last_name')[0].value.trim();
+                const phone = document.getElementsByName('phone')[0].value.trim();
+                
+                if (!firstName || !lastName || !phone) {
+                    canProceed = false;
+                }
+                break;
+    
+            case 2:
+                const scanPart = document.getElementsByName('scan_part')[0].value.trim();
+                const productType = document.getElementsByName('product_type')[0].value.trim();
+                const numberInBox = document.getElementsByName('number_in_box')[0].value.trim();
+                const manufactureDate = document.getElementsByName('manufacture_date')[0].value.trim();
+                
+                if (!scanPart || !productType || !numberInBox || !manufactureDate) {
+                    canProceed = false;
+                }
+                break;
+    
+            // Add more cases if you have more pages to validate
+        }
+    
+        if (canProceed) {
+            // If all required fields are filled, proceed to the next page
+            document.getElementById(`page${currentPage}`).style.display = "none";
+            currentPage++;
+            if (currentPage <= 3) {
+                document.getElementById(`page${currentPage}`).style.display = "block";
+            } else {
+                // If all pages are completed, submit the form
+                document.getElementById("scanForm").submit();
+            }
         } else {
-            // Submit the form
-            document.getElementById("scanForm").submit();
+            // If any required field is empty, display an alert or handle it as per your requirement
+            alert('لطفاً تمام فیلدهای مورد نیاز را پر کنید.');
+            // You can also add other UI/UX feedback mechanisms as needed.
         }
     }
-</script>
+    
+    function previousPage() {
+    // Hide the current page
+    document.getElementById(`page${currentPage}`).style.display = "none";
 
+    // Decrement the currentPage
+    currentPage--;
+
+    // If currentPage is within the valid range (greater than 0), display the previous page
+    if (currentPage > 0) {
+        document.getElementById(`page${currentPage}`).style.display = "block";
+    } else {
+        // If currentPage is less than or equal to 0, set it back to 1 to prevent errors
+        currentPage = 1;
+        document.getElementById(`page${currentPage}`).style.display = "block";
+    }
+    }
+
+    function startCameraOnScan() {
+        event.preventDefault();
+        const video = document.getElementById('camera-preview');
+        const startScanBtn = document.getElementById('start-scan-btn');
+        const scanBtn = document.getElementById('scan-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const retakeBtn = document.getElementById('retake-btn');
+        
+        // Specify constraints to use the back camera
+        const constraints = { video: { facingMode: { exact: "environment" } } };
+    
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                video.srcObject = stream;
+    
+                startScanBtn.classList.add('d-none');
+                scanBtn.classList.remove('d-none');
+                uploadBtn.classList.add('d-none');
+                retakeBtn.classList.add('d-none');
+    
+                scanBtn.addEventListener('click', function () {
+                    startScanBtn.classList.add('d-none');
+                    scanBtn.classList.add('d-none');
+                    uploadBtn.classList.remove('d-none');
+                    retakeBtn.classList.remove('d-none');
+    
+                    captureImage(video, scanBtn);
+                });
+    
+                retakeBtn.addEventListener('click', function () {
+                    startScanBtn.classList.add('d-none');
+                    scanBtn.classList.remove('d-none');
+                    uploadBtn.classList.add('d-none');
+                    retakeBtn.classList.add('d-none');
+    
+                    video.classList.remove('d-none');
+                    document.getElementById('captured-image-container').classList.add('d-none');
+                });
+            })
+            .catch((err) => {
+                console.error('Error accessing camera:', err);
+                alert('خطا در دسترسی به دوربین. لطفاً مجدداً تلاش کنید.');
+            });
+    
+        window.addEventListener('beforeunload', function () {
+            const tracks = video.srcObject?.getTracks();
+            if (tracks) {
+                tracks.forEach(track => track.stop());
+            }
+        });
+    }
+
+function captureImage(video, captureBtn) {
+    const capturedImageContainer = document.getElementById('captured-image-container');
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/png');
+
+    video.classList.add('d-none');
+
+    const img = document.createElement('img');
+    img.src = imageData;
+    img.width = canvas.width;
+    img.height = canvas.height;
+
+    capturedImageContainer.innerHTML = '';
+
+    capturedImageContainer.appendChild(img);
+    capturedImageContainer.classList.remove('d-none');
+
+    captureBtn.classList.add('d-none');
+}
+
+function sendDataAndPhoto() {
+    const capturedImageContainer = document.getElementById('captured-image-container');
+    const img = capturedImageContainer.querySelector('img');
+    
+    // Check if an image is captured
+    if (img && img.src) {
+        // Convert the image to a blob
+        fetch(img.src)
+            .then(res => res.blob())
+            .then(blob => {
+                // Create a FormData object to collect all form data
+                const formData = new FormData();
+                
+                // Append the image Blob to FormData with the name 'photo'
+                formData.append('photo', blob, 'captured-image.png');
+
+                // Gather other form data
+                const firstName = document.getElementsByName('first_name')[0].value.trim();
+                const lastName = document.getElementsByName('last_name')[0].value.trim();
+                const phone = document.getElementsByName('phone')[0].value.trim();
+                const scanPart = document.getElementsByName('scan_part')[0].value.trim();
+                const productType = document.getElementsByName('product_type')[0].value.trim();
+                const numberInBox = document.getElementsByName('number_in_box')[0].value.trim();
+                const manufactureDate = document.getElementsByName('manufacture_date')[0].value.trim();
+
+                // Append other form data to FormData
+                formData.append('first_name', firstName);
+                formData.append('last_name', lastName);
+                formData.append('phone', phone);
+                formData.append('scan_part', scanPart);
+                formData.append('product_type', productType);
+                formData.append('number_in_box', numberInBox);
+                formData.append('manufacture_date', manufactureDate);
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}'); // Add CSRF token
+
+                // Send FormData to the server using fetch or any other method
+                fetch("{% url 'scan:scan-view'%}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'  // Ensure you're providing the CSRF token correctly
+                    }
+                })
+                .then(response => {
+                    // Check if the response status is 200 OK
+                    if (response.status === 200) {
+                        alert('عملیات با موفقیت انجام شد');
+                        // Redirect the user to the desired site
+                        window.location.href = "https://www.virasmart.co/contact-us/";  // Replace with your desired URL
+                    } else {
+                        return response.json();  // If the response status is not 200, return the JSON response
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                    // Handle the response as needed
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching image:', error);
+            });
+    } else {
+        console.error('No image captured.');
+    }
+}
+
+// Function to convert data URI to Blob
+function dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+        int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
+}
+
+$(document).ready(function () {
+    $(".example1").pDatepicker({
+      initialValueType: "gregorian",
+      format: "YYYY/MM/DD",
+      onSelect: "year",
+    });
+  
+    const productDropdown = document.getElementById("productDropdown");
+    const selectedProduct = document.getElementById("selectedProduct");
+  
+    productDropdown.addEventListener("change", function () {
+      const selectedValue = productDropdown.value;
+      // selectedProduct.textContent = "Selected Product: " + selectedValue;
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
+<script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"
+    integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
