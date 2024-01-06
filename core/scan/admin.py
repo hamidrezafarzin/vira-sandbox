@@ -6,7 +6,7 @@ from .models import Scan
 # from import_export.admin import ExportActionModelAdmin, ImportExportModelAdmin
 
 
-class ScanAdmin(admin.ModelAdminx):
+class ScanAdmin(admin.ModelAdmin):
     model = Scan
     search_fields = ("phone", "first_name", "last_name")
     list_filter = ("scan_part", "created_date", "updated_date")
