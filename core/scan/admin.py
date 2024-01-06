@@ -3,10 +3,10 @@ from django.contrib import admin
 # Register your models here.
 
 from .models import Scan
-from import_export.admin import ExportActionModelAdmin, ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin
 
 
-class ScanAdmin(admin.ModelAdmin, ExportActionModelAdmin):
+class ScanAdmin(ImportExportModelAdmin):
     model = Scan
     search_fields = ("phone", "first_name", "last_name")
     list_filter = ("scan_part", "created_date", "updated_date")
