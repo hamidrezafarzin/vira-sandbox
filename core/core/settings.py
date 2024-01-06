@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'scan.apps.ScanConfig',
-    # 'import_export',
+    'import_export',
 ]
 
 MIDDLEWARE = [
